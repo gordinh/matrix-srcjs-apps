@@ -1,0 +1,6 @@
+# do not touch this line
+configVersion: 2
+
+name: qrCheck
+description: That's an app for checking and displaying food information from their qr code
+keywords: 'QRCode, android, development, food'
