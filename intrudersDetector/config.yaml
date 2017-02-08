@@ -1,0 +1,40 @@
+# do not touch this line
+configVersion: 2
+
+name: intrudersDetector
+description: Simple app detecting people
+keywords: everloop camera face-detection
+dataTypes:
+  photoList:
+    id: string
+    timestamp: string
+screens:
+- - labelScreen
+- - intervalConfig
+- - photosList
+
+wigdets:
+  labelScreen:
+    label: Intruders Detector
+  intervalConfig:
+    control: input
+    map:
+      - event: startTime
+        value: start time
+      - event: endTime
+        value: end time
+    label: Set interval
+    buttonTest:
+      control: button
+      event: sendInterval
+      value: Send Interval
+      label: Send Interval
+  photosList:
+    info:
+      display: list-group
+      type: device
+      keys: 
+        - id
+        - timestamp
+      groupby: id
+      label: Photos List
