@@ -3,11 +3,11 @@
 //
 // have fun
 
-var RaspiCam = require("../lib/raspicam");
+var RaspiCam = require("raspicam");
 
 // Verificar horario
 matrix.init('face').then(function(data){
-	
+
   	console.log('>>>>>>>>>>', data);
   	var camera = new RaspiCam({
 		mode: "photo",
@@ -22,4 +22,3 @@ matrix.init('face').then(function(data){
 
 	camera.start();
 });
-
