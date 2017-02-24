@@ -2,23 +2,11 @@
 // matrix.init()....
 //
 // have fun
-
-var RaspiCam = require("raspicam");
-
+matrix.led("red").render();
 // Verificar horario
-matrix.init('face').then(function(data){
-
-  	console.log('>>>>>>>>>>', data);
-  	var camera = new RaspiCam({
-		mode: "photo",
-		output: "./photo/image.jpg"+"time",
-		encoding: "jpg",
-		timeout: 0 // take the picture immediately
-	});
-
-	camera.on("start", function( err, timestamp ){
-		console.log("photo started at " + timestamp );
-	});
-
-	camera.start();
+var algorithm = 'demographics';
+var options = {};
+matrix.init(algorithm, options).then(function(data){
+	matrix.led("green").render();
+	console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data);
 });
