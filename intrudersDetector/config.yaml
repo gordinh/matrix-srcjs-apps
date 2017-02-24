@@ -9,3 +9,6 @@ services:
   intrudersDetector:
     engine: detection
     type: demographics
+
+dataTypes:
+  message: string

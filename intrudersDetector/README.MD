@@ -7,3 +7,6 @@ You may add packages via `npm`, they will be installed when the application is d
 ## Developer Documentation
 
 http://github.io/matrix-io/matrix-documentation/
+
+Please configure your email with:
+matrix set env emailAppName email=dilan@place.com		

@@ -1,19 +1,20 @@
-// app code goes here
-// matrix.init()....
-//
-// have fun
-matrix.led("red").render();
-// Verificar horario
-var algorithm = 'demographics';
-var options = {};
-const nodemailer = require('nodemailer');
+const email 		= matrix.settings.email ? matrix.settings.email : '';
+const message 		= 'We detected someone ';
+const nodemailer	= require('nodemailer');
+
+var algorithm 		= 'demographics';
+var options 		= {};
+
+if (email != '' ){
+	matrix.send({message: 'Please, configure your email'});
+	return;
+};
 
 matrix.init(algorithm, options).then(function(data){
-	
+
 	matrix.led("green").render();
 	console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data);
 
-	// create reusable transporter object using the default SMTP transport
 	let transporter = nodemailer.createTransport({
 	    service: 'gmail',
 	    auth: {
@@ -22,16 +23,14 @@ matrix.init(algorithm, options).then(function(data){
 	    }
 	});
 
-	// setup email data with unicode symbols
 	let mailOptions = {
-	    from: '"Fred Foo 👻" <admolizetest@gmail.com>', // sender address
-	    to: 'carla.santana@admobilize.com', // list of receivers
-	    subject: 'Hello ✔', // Subject line
-	    text: 'Hello world ?', // plain text body
-	    html: '<b>Hello world ?</b>' // html body
+	    from: 		'"Jones.Json" <admolizetest@gmail.com>',
+	    to: 		email,
+	    subject: 	'Hello ✔',
+	    text: 		message,
+	    html: 		'<b>' + message + '</b>'
 	};
 
-	// send mail with defined transport object
 	transporter.sendMail(mailOptions, (error, info) => {
 	    if (error) {
 	        return console.log(error);
