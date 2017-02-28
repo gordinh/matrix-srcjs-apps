@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cpu-stats": "^1.0.0"
+    "cpu-stats": "^1.0.0",
+    "nodemailer": "^3.1.4"
   }
 }

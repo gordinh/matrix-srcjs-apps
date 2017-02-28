@@ -1,40 +1,37 @@
-const email 		= matrix.settings.email ? matrix.settings.email : '';
-const message 		= 'We detected someone ';
-const nodemailer	= require('nodemailer');
+var message 		= 'We detected someone!';
+var nodemailer	= require('nodemailer');
 
-var algorithm 		= 'demographics';
+var algorithm 		= 'face';
 var options 		= {};
 
-if (email != '' ){
-	matrix.send({message: 'Please, configure your email'});
-	return;
-};
+if (matrix.config.settings.email === 'undefined' ){
+	matrix.send({ message: 'Please, configure your email' });
+} else {
+	matrix.init(algorithm, options).then(function(data){
 
-matrix.init(algorithm, options).then(function(data){
+		matrix.led("green").render();
 
-	matrix.led("green").render();
-	console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", data);
+		var transporter = nodemailer.createTransport({
+		    service: 'gmail',
+		    auth: {
+		        user: 'admolizetest@gmail.com',
+		        pass: 'tapioca123'
+		    }
+		});
 
-	let transporter = nodemailer.createTransport({
-	    service: 'gmail',
-	    auth: {
-	        user: 'admolizetest@gmail.com',
-	        pass: 'tapioca123'
-	    }
+		var mailOptions = {
+		    from: 		'"Intruders detector" <admolizetest@gmail.com>',
+		    to: 		matrix.config.settings.email,
+		    subject: 	'Hello ✔',
+		    text: 		message,
+		    html: 		'<b>' + message + '</b>'
+		};
+
+		transporter.sendMail(mailOptions, function (error, info) {
+		    if (error)
+		        return console.log(error);
+		    console.log('Message %s sent: %s', info.messageId, info.response);
+		});
+		matrix.send({ message: message });
 	});
-
-	let mailOptions = {
-	    from: 		'"Jones.Json" <admolizetest@gmail.com>',
-	    to: 		email,
-	    subject: 	'Hello ✔',
-	    text: 		message,
-	    html: 		'<b>' + message + '</b>'
-	};
-
-	transporter.sendMail(mailOptions, (error, info) => {
-	    if (error) {
-	        return console.log(error);
-	    }
-	    console.log('Message %s sent: %s', info.messageId, info.response);
-	});
-});
+}
