@@ -10,5 +10,7 @@ services:
     engine: detection
     type: demographics
 
+sensors:
+    - temperature
 dataTypes:
   message: string

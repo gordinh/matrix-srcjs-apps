@@ -1,5 +1,4 @@
 var nodemailer		= require('nodemailer');
-var jimp 			= require('jimp');
 
 
 var algorithm 		= 'demographics';
@@ -11,23 +10,19 @@ var message 		= 'We detected someone!';
 
 if (typeof matrix.config.settings.email === 'undefined' ){
 	matrix.send({ message: 'Please, configure your email' });
+	matrix.led("blue").render();
 } else {
-	matrix.init(algorithm, options).then(function(payload){
+	matrix.led("yellow").render();
+	setTimeout(function() {
+		matrix.led('black').render();
+	}, 2000);
+	matrix.service(algorithm).start().then(function(payload){
 		var email 			= matrix.config.settings.email.replace(/\//g, ".");
 		matrix.led("green").render();
 
 		setTimeout(function() {
 		   matrix.led('black').render();
 		}, 2000);
-/*
-		jimp.read(payload.image.data, function (err, image) {
-		    image.resize(256, 256)            // resize
-		         .quality(60)                 // set JPEG quality
-		         .greyscale()                 // set greyscale
-		         .write("test.jpg"); // save
-		});
-
-		console.log("JOSE**: ", payload.image.data);*/
 		var transporter = nodemailer.createTransport({
 		    service: 'gmail',
 		    auth: {
